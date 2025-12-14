@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class HomeButton extends StatelessWidget {
   final Icon icon;
@@ -9,7 +10,7 @@ class HomeButton extends StatelessWidget {
     return IconButton(
       icon: icon,
       onPressed: () {
-        print("Exit to app");
+        SystemNavigator.pop();
       },
     );
   }

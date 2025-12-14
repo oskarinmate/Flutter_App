@@ -1,54 +1,64 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/home/models/story.dart';
+import 'package:flutter_application_1/home/screens/detail/detail-screen.dart';
 
 class HomeCard extends StatelessWidget {
   final StoryDTO story;
+
   const HomeCard({Key? key, required this.story}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(
-        bottom: 10,
-      ),
-      height: 120,
-      decoration: BoxDecoration(
-        
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: Colors.grey..shade800, width: 2),
-      ),
-
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          ClipOval(child: Image.network(story.image)),
-          Container(
-            margin: EdgeInsets.only(right: 20),
-            child: buildingStoryInformation(story),
+    return GestureDetector(
+      onTap: () {
+        // Navegación a la pantalla de detalle
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => DetailScreen(story: story),
           ),
-        ],
+        );
+      },
+      child: Container(
+        height: 120,
+        margin: const EdgeInsets.symmetric(vertical: 8),
+        padding: const EdgeInsets.all(8),
+        color: const Color.fromARGB(255, 59, 64, 65),
+        child: Row(
+          children: [
+            Image.network(
+              story.image,
+              width: 100,
+              fit: BoxFit.cover,
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    story.name,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    story.species,
+                    style: const TextStyle(color: Colors.white70),
+                  ),
+                  Text(
+                    story.status,
+                    style: const TextStyle(color: Colors.white70),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
-}
-
-Widget buildingStoryInformation(StoryDTO story) {
-  return Column(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        story.name,
-        style: TextStyle(fontSize: 20),
-      ),
-      Text(
-        story.species,
-        style: TextStyle(fontSize: 15)
-        ),
-      Text(
-        story.status,
-        style: TextStyle(fontSize: 15)
-        ),
-    ],
-  );
 }
