@@ -49,3 +49,35 @@ class DetailScreen extends StatelessWidget {
     );
   }
 }
+PreferredSizeWidget buildResponsiveAppBar(BuildContext context) {
+  final width = MediaQuery.of(context).size.width;
+
+  final bool isMobile = width < 600;
+  final bool isTablet = width >= 600 && width < 1024;
+
+  return AppBar(
+    centerTitle: true,
+    elevation: isMobile ? 2 : 4,
+    backgroundColor: const Color(0xFF97CE4C),
+    toolbarHeight: isMobile ? 56 : isTablet ? 64 : 72,
+    title: Text(
+      "Rick and Morty App",
+      style: TextStyle(
+        fontSize: isMobile ? 18 : isTablet ? 22 : 26,
+        fontWeight: FontWeight.bold,
+        color: Colors.black,
+      ),
+    ),
+    actions: [
+      IconButton(
+        tooltip: "Salir",
+        icon: const Icon(Icons.exit_to_app, color: Colors.black),
+        onPressed: () {
+          // SystemNavigator.pop();
+        },
+      ),
+    ],
+  );
+}
+
+
